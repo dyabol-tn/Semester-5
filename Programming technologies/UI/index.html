@@ -1,1 +1,1224 @@
-1
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayrollHub — Корпоративная система начисления заработной платы</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body id="app-root">
+
+
+  <header class="app-header">
+    <div class="header-main-row">
+      <div class="brand-wrapper">
+        <a href="#view-dashboard" class="brand-link" title="Перейти на главную">
+          <div class="brand-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+          </div>
+          <div class="brand-title-group">
+            <span class="brand-name">Payroll<strong>Hub</strong></span>
+            <span class="brand-subtitle">АИС «Начисление зарплаты»</span>
+          </div>
+        </a>
+      </div>
+
+
+      <form class="global-search" action="#view-timecards" method="get" role="search">
+        <svg class="search-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" name="search_query" placeholder="Поиск по табелям, чекам, сотрудникам..." autocomplete="off">
+        <kbd class="search-kbd">Ctrl K</kbd>
+      </form>
+
+
+      <div class="header-meta">
+        <div class="db-status-badge" title="Существующая корпоративная БД подключена в режиме только чтения">
+          <span class="status-pulse-dot" aria-hidden="true"></span>
+          <span class="db-status-label">Legacy DB: <strong>Read-Only</strong></span>
+        </div>
+
+
+        <a href="#modal-notifications" class="icon-btn" title="Уведомления">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="badge-dot"></span>
+        </a>
+
+
+        <div class="user-profile-menu">
+          <a href="#modal-login" class="user-card-link" title="Нажмите, чтобы сменить пользователя или войти под Администратором">
+            <div class="user-avatar-circle">ИА</div>
+            <div class="user-text-details">
+              <span class="user-display-name">Иван Аношко</span>
+              <span class="user-display-role">Почасовик • ID 101</span>
+            </div>
+            <svg class="chevron-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+    <nav class="app-nav" aria-label="Разделы системы">
+      <div class="nav-inner-container">
+        <ul class="nav-tab-list" role="tablist">
+          <li role="presentation">
+            <a href="#view-dashboard" class="nav-tab-item active-indicator" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span>Обзор</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-timecards" class="nav-tab-item" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>Мои табели времени</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-sales-orders" class="nav-tab-item" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              <span>Заказы на поставку</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-paychecks" class="nav-tab-item" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <span>Расчетные чеки</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-vacations" class="nav-tab-item" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+              <span>Отпуска</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-admin" class="nav-tab-item nav-tab-admin" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span>Панель администратора</span>
+              <span class="role-pill-admin">HR Admin</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-reports" class="nav-tab-item" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Отчеты</span>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#view-error" class="nav-tab-item nav-tab-error" role="tab">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              <span>Ошибки (Демо)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+
+  <main class="app-main-viewport">
+
+
+    <section id="view-dashboard" class="spa-page-view default-active-view">
+      <aside class="notice-banner">
+        <div class="notice-icon-circle">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </div>
+        <div class="notice-text-content">
+          <strong>Регламентный расчет заработной платы:</strong> Ближайшее автоматическое начисление почасовикам состоится <strong>в пятницу, 20 ноября 2026 г.</strong> в 23:59. Убедитесь, что все карточки учета времени внесены и утверждены.
+        </div>
+        <a href="#view-timecards" class="notice-action-btn">Проверить табели</a>
+      </aside>
+
+
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Личный кабинет сотрудника</h1>
+          <p class="page-description">Период учета: <strong>01 ноября — 20 ноября 2026 г.</strong> • Тарифная ставка: <strong>25.50 BYN/час</strong></p>
+        </div>
+        <div class="page-header-actions">
+          <a href="#modal-timecard-add" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Внести часы работы</span>
+          </a>
+          <a href="#view-paychecks" class="action-btn btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Мой последний чек</span>
+          </a>
+        </div>
+      </header>
+
+
+      <div class="kpi-metric-grid">
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Часы за текущую неделю</span>
+            <span class="metric-icon-badge blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">40.0 <span class="metric-unit">ч</span></div>
+            <div class="metric-status-line success">Норматив недели (40 ч) выполнен</div>
+          </div>
+          <div class="metric-footer">
+            <a href="#view-timecards" class="metric-link">Детализация табеля →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">К выплате в пятницу</span>
+            <span class="metric-icon-badge green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">887.40 <span class="metric-unit">BYN</span></div>
+            <div class="metric-status-line">Gross: 1 020.00 | Налог 13%: 132.60</div>
+          </div>
+          <div class="metric-footer">
+            <a href="#view-paychecks" class="metric-link">Посмотреть чек chk1 →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Баланс отпуска</span>
+            <span class="metric-icon-badge amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">28 <span class="metric-unit">дней</span></div>
+            <div class="metric-status-line">Подача не позднее 60 дней до отпуска</div>
+          </div>
+          <div class="metric-footer">
+            <a href="#modal-vacation-add" class="metric-link">Подать заявление →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Канал получения средств</span>
+            <span class="metric-icon-badge purple">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-text-highlight">Bank Transfer</div>
+            <div class="metric-status-line">Счет: BY20 UNBS 0001 ... 2900</div>
+          </div>
+          <div class="metric-footer">
+            <a href="#modal-login" class="metric-link">Изменить способ выплаты →</a>
+          </div>
+        </article>
+      </div>
+
+
+      <section class="content-panel">
+        <div class="panel-header-row">
+          <div>
+            <h2 class="panel-heading">Недавние карточки рабочего времени</h2>
+            <p class="panel-caption">Записи за последнюю отчетную неделю</p>
+          </div>
+          <a href="#view-timecards" class="action-btn btn-sm btn-outline">Все табели (48)</a>
+        </div>
+
+        <div class="modern-grid-table timecards-summary-grid" role="region" aria-label="Сводка табелей">
+          <div class="grid-head-row" role="row">
+            <div class="grid-th" role="columnheader">Дата работы</div>
+            <div class="grid-th" role="columnheader">Количество часов</div>
+            <div class="grid-th" role="columnheader">Сверхурочные (>8ч, x1.5)</div>
+            <div class="grid-th" role="columnheader">Тарифная сумма</div>
+            <div class="grid-th" role="columnheader">Статус записи</div>
+            <div class="grid-th grid-th-right" role="columnheader">Действия</div>
+          </div>
+
+          <div class="grid-body-row" role="row">
+            <div class="grid-td" role="cell">
+              <strong>04.11.2026</strong>
+              <span class="sub-label">Понедельник</span>
+            </div>
+            <div class="grid-td" role="cell">8.0 ч</div>
+            <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+            <div class="grid-td" role="cell">204.00 BYN</div>
+            <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+            <div class="grid-td grid-td-right" role="cell">
+              <a href="#modal-timecard-edit" class="btn-table-action" title="Редактировать">Изменить</a>
+            </div>
+          </div>
+
+          <div class="grid-body-row" role="row">
+            <div class="grid-td" role="cell">
+              <strong>05.11.2026</strong>
+              <span class="sub-label">Вторник</span>
+            </div>
+            <div class="grid-td" role="cell">8.0 ч</div>
+            <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+            <div class="grid-td" role="cell">204.00 BYN</div>
+            <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+            <div class="grid-td grid-td-right" role="cell">
+              <a href="#modal-timecard-edit" class="btn-table-action">Изменить</a>
+            </div>
+          </div>
+
+          <div class="grid-body-row row-accent-overtime" role="row">
+            <div class="grid-td" role="cell">
+              <strong>06.11.2026</strong>
+              <span class="sub-label">Среда</span>
+            </div>
+            <div class="grid-td" role="cell">10.0 ч</div>
+            <div class="grid-td" role="cell"><span class="status-pill amber">+2.0 ч сверхурочно</span></div>
+            <div class="grid-td" role="cell"><strong>280.50 BYN</strong></div>
+            <div class="grid-td" role="cell"><span class="status-pill blue">Submitted</span></div>
+            <div class="grid-td grid-td-right" role="cell">
+              <a href="#modal-timecard-edit" class="btn-table-action">Изменить</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+
+    <section id="view-timecards" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Табели учета рабочего времени</h1>
+          <p class="page-description">Ежедневный учет трудозатрат, автоматический расчет переработок с коэффициентом 1.5</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="#modal-timecard-add" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Внести рабочий день</span>
+          </a>
+        </div>
+      </header>
+
+
+      <section class="controls-toolbar">
+        <form class="toolbar-filter-form" action="#view-timecards" method="get">
+          <div class="field-item">
+            <label for="tc-date-start">Период с:</label>
+            <input type="date" id="tc-date-start" name="date_from" value="2026-11-01">
+          </div>
+          <div class="field-item">
+            <label for="tc-date-end">по:</label>
+            <input type="date" id="tc-date-end" name="date_to" value="2026-11-20">
+          </div>
+          <div class="field-item">
+            <label for="tc-status-select">Статус проверки:</label>
+            <select id="tc-status-select" name="status">
+              <option value="all">Все статусы</option>
+              <option value="approved" selected>Утвержден (Approved)</option>
+              <option value="submitted">На проверке (Submitted)</option>
+              <option value="paid">Оплачен (Paid)</option>
+            </select>
+          </div>
+          <div class="field-item search-field">
+            <label for="tc-keyword">Поиск по заметкам:</label>
+            <input type="search" id="tc-keyword" placeholder="Проект, модуль...">
+          </div>
+          <div class="toolbar-actions">
+            <button type="submit" class="action-btn btn-secondary">Применить</button>
+            <button type="reset" class="action-btn btn-outline">Сброс</button>
+          </div>
+        </form>
+
+
+        <div class="sort-bar-row">
+          <span class="sort-bar-label">Сортировка:</span>
+          <div class="sort-pill-group">
+            <a href="#view-timecards" class="sort-pill active">По дате ↓</a>
+            <a href="#view-timecards" class="sort-pill">По дате ↑</a>
+            <a href="#view-timecards" class="sort-pill">По часам</a>
+            <a href="#view-timecards" class="sort-pill">По статусу</a>
+          </div>
+        </div>
+      </section>
+
+
+      <div class="modern-grid-table full-timecards-grid" role="region" aria-label="Карточки табелей">
+        <div class="grid-head-row" role="row">
+          <div class="grid-th" role="columnheader">Номер табеля</div>
+          <div class="grid-th" role="columnheader">Дата работы</div>
+          <div class="grid-th" role="columnheader">Отработано часов</div>
+          <div class="grid-th" role="columnheader">Сверхурочные (x1.5)</div>
+          <div class="grid-th" role="columnheader">Начислено</div>
+          <div class="grid-th" role="columnheader">Статус записи</div>
+          <div class="grid-th grid-th-right" role="columnheader">Операции</div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#TC-101-01</strong></div>
+          <div class="grid-td" role="cell">01.11.2026</div>
+          <div class="grid-td" role="cell">8.0 ч</div>
+          <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+          <div class="grid-td" role="cell">204.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-timecard-edit" class="btn-icon-link" title="Редактировать">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              </a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger" title="Удалить запись">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#TC-101-02</strong></div>
+          <div class="grid-td" role="cell">02.11.2026</div>
+          <div class="grid-td" role="cell">8.0 ч</div>
+          <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+          <div class="grid-td" role="cell">204.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-timecard-edit" class="btn-icon-link" title="Редактировать"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger" title="Удалить запись"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#TC-101-03</strong></div>
+          <div class="grid-td" role="cell">03.11.2026</div>
+          <div class="grid-td" role="cell">8.0 ч</div>
+          <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+          <div class="grid-td" role="cell">204.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-timecard-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#TC-101-04</strong></div>
+          <div class="grid-td" role="cell">04.11.2026</div>
+          <div class="grid-td" role="cell">8.0 ч</div>
+          <div class="grid-td" role="cell"><span class="text-subtle">—</span></div>
+          <div class="grid-td" role="cell">204.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill green">Approved</span></div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-timecard-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-body-row row-accent-overtime" role="row">
+          <div class="grid-td" role="cell"><strong>#TC-101-05</strong></div>
+          <div class="grid-td" role="cell">05.11.2026</div>
+          <div class="grid-td" role="cell">10.0 ч</div>
+          <div class="grid-td" role="cell"><span class="status-pill amber">2.0 ч x 1.5</span></div>
+          <div class="grid-td" role="cell"><strong>280.50 BYN</strong></div>
+          <div class="grid-td" role="cell"><span class="status-pill blue">Submitted</span></div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-timecard-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="table-footer-pagination">
+        <span class="pagination-counter-text">Показано 5 из 48 записей</span>
+        <button type="button" class="action-btn btn-outline btn-load-more">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span>Загрузить еще 10 записей</span>
+        </button>
+        <div class="pagination-pages-group">
+          <button type="button" class="page-sq-btn" disabled>«</button>
+          <button type="button" class="page-sq-btn active">1</button>
+          <button type="button" class="page-sq-btn">2</button>
+          <button type="button" class="page-sq-btn">3</button>
+          <span class="page-dots">...</span>
+          <button type="button" class="page-sq-btn">5</button>
+          <button type="button" class="page-sq-btn">»</button>
+        </div>
+      </footer>
+    </section>
+
+
+    <section id="view-sales-orders" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Заказы на поставку • Учет продаж</h1>
+          <p class="page-description">Регистрация объемов реализации служащими-комиссионерами (ставка 10%, 15%, 25% или 35%)</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="#modal-order-add" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Зарегистрировать заказ</span>
+          </a>
+        </div>
+      </header>
+
+      <div class="modern-grid-table sales-orders-grid" role="region" aria-label="Заказы на поставку">
+        <div class="grid-head-row" role="row">
+          <div class="grid-th" role="columnheader">Номер заказа</div>
+          <div class="grid-th" role="columnheader">Дата заказа</div>
+          <div class="grid-th" role="columnheader">Клиент / Контрагент</div>
+          <div class="grid-th" role="columnheader">Сумма продажи</div>
+          <div class="grid-th" role="columnheader">Ставка комиссии</div>
+          <div class="grid-th" role="columnheader">Комиссионные</div>
+          <div class="grid-th grid-th-right" role="columnheader">Статус</div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>ORD-2026-881</strong></div>
+          <div class="grid-td" role="cell">08.11.2026</div>
+          <div class="grid-td" role="cell">ОАО «БелСетьСервис»</div>
+          <div class="grid-td" role="cell">14 500.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill purple">15%</span></div>
+          <div class="grid-td" role="cell"><strong>2 175.00 BYN</strong></div>
+          <div class="grid-td grid-td-right" role="cell"><span class="status-pill green">Closed</span></div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>ORD-2026-892</strong></div>
+          <div class="grid-td" role="cell">12.11.2026</div>
+          <div class="grid-td" role="cell">ЗАО «МинскТехноСервис»</div>
+          <div class="grid-td" role="cell">8 200.00 BYN</div>
+          <div class="grid-td" role="cell"><span class="status-pill purple">15%</span></div>
+          <div class="grid-td" role="cell"><strong>1 230.00 BYN</strong></div>
+          <div class="grid-td grid-td-right" role="cell"><span class="status-pill green">Closed</span></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="view-paychecks" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Расчетные чеки и ведомости</h1>
+          <p class="page-description">Реестр платежных документов, начислений и удержанных налогов</p>
+        </div>
+      </header>
+
+
+      <article class="official-paycheck-document">
+        <div class="doc-header-strip">
+          <div class="doc-brand">
+            <span class="doc-badge-live">Официальный платежный документ</span>
+            <h2>Расчетный чек № CHK-2026-11-20-101</h2>
+            <span class="doc-subtext">Сформирован: <strong>20.11.2026</strong> • Канал: <strong>Bank Transfer</strong></span>
+          </div>
+          <div class="doc-status-box">
+            <span class="status-pill green large">Исполнен (Paid)</span>
+          </div>
+        </div>
+
+        <div class="doc-columns-grid">
+          <div class="doc-card-info">
+            <span class="info-group-title">Получатель выплаты</span>
+            <div class="info-line"><span>ФИО служащего:</span> <strong>Иван Аношко</strong> (ID 101)</div>
+            <div class="info-line"><span>Категория:</span> Почасовик (Еженедельная выплата)</div>
+            <div class="info-line"><span>Адрес проживания:</span> г. Минск, ул. Казимировская, 29</div>
+            <div class="info-line"><span>Банковский счет:</span> BY20 UNBS 0001 2900 1101</div>
+          </div>
+
+          <div class="doc-card-info">
+            <span class="info-group-title">Базис начисления</span>
+            <div class="info-line"><span>Тарифная ставка:</span> 25.50 BYN/час</div>
+            <div class="info-line"><span>Отработано часов:</span> 40.0 ч</div>
+            <div class="info-line"><span>Сверхурочные часы:</span> 0.0 ч</div>
+            <div class="info-line"><span>Период расчета:</span> 10.11.2026 — 16.11.2026</div>
+          </div>
+
+          <div class="doc-card-info summary-highlight">
+            <span class="info-group-title">Финансовый итог</span>
+            <div class="calc-row"><span>Начислено (Gross Pay):</span> <strong>1 020.00 BYN</strong></div>
+            <div class="calc-row text-danger"><span>Подоходный налог (13%):</span> <strong>-132.60 BYN</strong></div>
+            <div class="calc-row total-net-row">
+              <span>Сумма к перечислению:</span>
+              <strong class="total-net-sum">887.40 BYN</strong>
+            </div>
+          </div>
+        </div>
+
+        <footer class="doc-footer-actions">
+          <button type="button" class="action-btn btn-primary" onclick="window.print()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <span>Распечатать / Экспорт PDF</span>
+          </button>
+          <a href="#modal-email-sent" class="action-btn btn-outline">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Отправить на Email</span>
+          </a>
+        </footer>
+      </article>
+    </section>
+
+
+    <section id="view-vacations" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Ежегодный оплачиваемый отпуск</h1>
+          <p class="page-description">28 рабочих дней ежегодно. Обязательное заблаговременное информирование (не менее 60 дней)</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="#modal-vacation-add" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Подать заявку на отпуск</span>
+          </a>
+        </div>
+      </header>
+
+      <div class="vacation-policy-panel">
+        <div class="policy-item">
+          <span class="policy-num">28</span>
+          <span class="policy-label">Рабочих дней отпуска в год</span>
+        </div>
+        <div class="policy-divider"></div>
+        <div class="policy-item">
+          <span class="policy-num">≥ 60</span>
+          <span class="policy-label">Дней заблаговременного уведомления</span>
+        </div>
+        <div class="policy-divider"></div>
+        <div class="policy-item">
+          <span class="policy-num">3 мес</span>
+          <span class="policy-label">Средний доход для аванса отпускных</span>
+        </div>
+      </div>
+
+      <div class="modern-grid-table vacation-table-grid" role="region" aria-label="Заявки на отпуск">
+        <div class="grid-head-row" role="row">
+          <div class="grid-th" role="columnheader">Номер заявки</div>
+          <div class="grid-th" role="columnheader">Дата подачи</div>
+          <div class="grid-th" role="columnheader">Период отпуска</div>
+          <div class="grid-th" role="columnheader">Дней</div>
+          <div class="grid-th" role="columnheader">Срок до начала</div>
+          <div class="grid-th" role="columnheader">Аванс отпускных</div>
+          <div class="grid-th grid-th-right" role="columnheader">Статус</div>
+        </div>
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>VAC-2026-04</strong></div>
+          <div class="grid-td" role="cell">10.11.2026</div>
+          <div class="grid-td" role="cell">15.01.2027 — 12.02.2027</div>
+          <div class="grid-td" role="cell">28 дней</div>
+          <div class="grid-td" role="cell"><span class="status-pill green">66 дней (Норма ≥60 соблюдена)</span></div>
+          <div class="grid-td" role="cell">3 620.00 BYN (Аванс)</div>
+          <div class="grid-td grid-td-right" role="cell"><span class="status-pill blue">Approved</span></div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="view-admin" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <div class="title-with-badge">
+            <h1 class="page-main-title">Панель администратора • Кадровый учет</h1>
+            <span class="status-pill purple">Режим Администратора</span>
+          </div>
+          <p class="page-description">Управление служащими филиалов, назначение окладов и ставок, запуск расписания и формирование отчетов</p>
+        </div>
+        <div class="page-header-actions">
+          <a href="#modal-employee-add" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>Добавить сотрудника</span>
+          </a>
+          <a href="#modal-run-payroll-confirm" class="action-btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+            <span>Запустить расчет (Пятница)</span>
+          </a>
+        </div>
+      </header>
+
+
+      <div class="kpi-metric-grid admin-metrics-grid">
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Штат сотрудников</span>
+            <span class="metric-icon-badge blue">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">186 <span class="metric-unit">чел</span></div>
+            <div class="metric-status-line">Беларусь: 142 • Польша: 44</div>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Фонд оплаты труда (Ноябрь)</span>
+            <span class="metric-icon-badge green">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">482 600 <span class="metric-unit">BYN</span></div>
+            <div class="metric-status-line success">В пределах планового бюджета</div>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-header">
+            <span class="metric-label">Ожидают утверждения</span>
+            <span class="metric-icon-badge amber">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </span>
+          </div>
+          <div class="metric-body">
+            <div class="metric-big-number">12 <span class="metric-unit">табелей</span></div>
+            <div class="metric-status-line">Требуется верификация до 18:00</div>
+          </div>
+        </article>
+      </div>
+
+
+      <section class="controls-toolbar">
+        <form class="toolbar-filter-form" action="#view-admin" method="get">
+          <div class="field-item search-field">
+            <label for="adm-search-input">Поиск служащего:</label>
+            <input type="search" id="adm-search-input" placeholder="Имя, табельный номер, город...">
+          </div>
+          <div class="field-item">
+            <label for="adm-cat-select">Категория:</label>
+            <select id="adm-cat-select">
+              <option value="all">Все категории (3)</option>
+              <option value="hourly">1. Почасовики</option>
+              <option value="salaried">2. Фиксированный оклад</option>
+              <option value="commissioned">3. Оклад + комиссия</option>
+            </select>
+          </div>
+          <div class="field-item">
+            <label for="adm-pay-method-select">Способ выплаты:</label>
+            <select id="adm-pay-method-select">
+              <option value="all">Все методы</option>
+              <option value="bank">Банковский перевод (Bank)</option>
+              <option value="mail">Почтовый чек (Mail)</option>
+              <option value="office">Наличные в офисе (Office)</option>
+            </select>
+          </div>
+          <div class="toolbar-actions">
+            <button type="submit" class="action-btn btn-secondary">Найти</button>
+          </div>
+        </form>
+
+        <div class="sort-bar-row">
+          <span class="sort-bar-label">Сортировать список:</span>
+          <div class="sort-pill-group">
+            <a href="#view-admin" class="sort-pill active">По табельному номеру</a>
+            <a href="#view-admin" class="sort-pill">По фамилии (А-Я)</a>
+            <a href="#view-admin" class="sort-pill">По окладу</a>
+          </div>
+        </div>
+      </section>
+
+
+      <div class="modern-grid-table admin-employees-grid" role="region" aria-label="Справочник сотрудников">
+        <div class="grid-head-row" role="row">
+          <div class="grid-th" role="columnheader">ID</div>
+          <div class="grid-th" role="columnheader">ФИО служащего</div>
+          <div class="grid-th" role="columnheader">Адрес / Филиал</div>
+          <div class="grid-th" role="columnheader">Категория оплаты</div>
+          <div class="grid-th" role="columnheader">Тариф / Оклад / %</div>
+          <div class="grid-th" role="columnheader">Способ выплаты</div>
+          <div class="grid-th grid-th-right" role="columnheader">Управление</div>
+        </div>
+
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#101</strong></div>
+          <div class="grid-td" role="cell">
+            <strong>Иван Аношко</strong>
+            <span class="sub-label">ivan.anoshko@company.com</span>
+          </div>
+          <div class="grid-td" role="cell">г. Минск, ул. Казимировская 29 (Беларусь)</div>
+          <div class="grid-td" role="cell"><span class="status-pill blue">Почасовик</span></div>
+          <div class="grid-td" role="cell">25.50 BYN/час</div>
+          <div class="grid-td" role="cell">Bank Transfer</div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-employee-edit" class="btn-icon-link" title="Редактировать данные служащего"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger" title="Удалить из системы"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#102</strong></div>
+          <div class="grid-td" role="cell">
+            <strong>Алена Васильева</strong>
+            <span class="sub-label">a.vasilieva@company.com</span>
+          </div>
+          <div class="grid-td" role="cell">г. Гродно, ул. Советская 14 (Беларусь)</div>
+          <div class="grid-td" role="cell"><span class="status-pill purple">Оклад (Фиксированный)</span></div>
+          <div class="grid-td" role="cell">2 800.00 BYN/мес</div>
+          <div class="grid-td" role="cell">Bank Transfer</div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-employee-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#103</strong></div>
+          <div class="grid-td" role="cell">
+            <strong>Дмитрий Ковалев</strong>
+            <span class="sub-label">d.kovalev@company.com</span>
+          </div>
+          <div class="grid-td" role="cell">г. Брест, пр. Машерова 8 (Беларусь)</div>
+          <div class="grid-td" role="cell"><span class="status-pill amber">Оклад + Комиссионные</span></div>
+          <div class="grid-td" role="cell">1 900.00 BYN + 15%</div>
+          <div class="grid-td" role="cell">Mail (Почтовый чек)</div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-employee-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="grid-body-row" role="row">
+          <div class="grid-td" role="cell"><strong>#104</strong></div>
+          <div class="grid-td" role="cell">
+            <strong>Сергей Смирнов</strong>
+            <span class="sub-label">s.smirnov@company.com</span>
+          </div>
+          <div class="grid-td" role="cell">г. Варшава, ул. Маршалковска 12 (Польша)</div>
+          <div class="grid-td" role="cell"><span class="status-pill blue">Почасовик</span></div>
+          <div class="grid-td" role="cell">35.00 PLN/час</div>
+          <div class="grid-td" role="cell">Office (В офисе)</div>
+          <div class="grid-td grid-td-right" role="cell">
+            <div class="table-actions-cluster">
+              <a href="#modal-employee-edit" class="btn-icon-link"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></a>
+              <a href="#modal-confirm-delete" class="btn-icon-link text-danger"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="table-footer-pagination">
+        <span class="pagination-counter-text">Показано 4 из 186 служащих</span>
+        <button type="button" class="action-btn btn-outline btn-load-more">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          <span>Загрузить следующих 20 служащих</span>
+        </button>
+      </footer>
+    </section>
+
+
+    <section id="view-reports" class="spa-page-view">
+      <header class="page-top-header">
+        <div class="page-title-box">
+          <h1 class="page-main-title">Формирование отчетов компании</h1>
+          <p class="page-description">Справки о доходах, выгрузка табелей и сводные ведомости для руководства</p>
+        </div>
+      </header>
+
+      <div class="reports-card-grid">
+        <article class="report-box-card">
+          <div class="report-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>Отчет об отработанных часах</h3>
+          <p>Посуточная детализация отработанного времени, сверхурочных часов и коэффициентов надбавки 1.5.</p>
+          <div class="report-action-area">
+            <button type="button" class="action-btn btn-primary btn-sm">Сформировать отчет</button>
+          </div>
+        </article>
+
+        <article class="report-box-card">
+          <div class="report-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <h3>Справка о совокупном доходе</h3>
+          <p>Финансовая справка о начисленной заработной плате, удержанном подоходном налоге (13%) и чистых выплатах за 3/6/12 мес.</p>
+          <div class="report-action-area">
+            <button type="button" class="action-btn btn-primary btn-sm">Сформировать справку</button>
+          </div>
+        </article>
+
+        <article class="report-box-card">
+          <div class="report-icon-circle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path></svg>
+          </div>
+          <h3>Ведомость отпускных выплат</h3>
+          <p>График ежегодных 28-дневных отпусков, контроль 60-дневного интервала и расчет среднего дохода.</p>
+          <div class="report-action-area">
+            <button type="button" class="action-btn btn-primary btn-sm">Сформировать ведомость</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <section id="view-error" class="spa-page-view">
+      <div class="error-view-wrapper">
+        <div class="error-illustration-box">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+          </svg>
+        </div>
+
+        <span class="status-pill red large">Ошибка 403 • Доступ запрещен (Security Policy)</span>
+        <h1 class="error-heading">Отказ в доступе к запрашиваемому ресурсу</h1>
+        <p class="error-subtext">
+          В соответствии с регламентом информационной безопасности АИС, служащие имеют доступ
+          <strong>исключительно к своим собственным данным</strong>. Попытка просмотра или изменения данных другого
+          сотрудника либо вызова привилегированных функций панели администратора была заблокирована модулем аудита безопасности.
+        </p>
+
+
+        <div class="error-audit-terminal">
+          <div class="terminal-bar">
+            <span class="term-dot red"></span>
+            <span class="term-dot amber"></span>
+            <span class="term-dot green"></span>
+            <span class="term-title">Audit Security Log — 2026-11-18 12:40:15 UTC</span>
+          </div>
+          <code>
+            [SECURITY_ALERT] ACCESS_DENIED_EMPLOYEE_ISOLATION_VIOLATION<br>
+            Current_User: ID 101 ("Иван Аношко", Role: HourlyEmployee)<br>
+            Requested_Resource: /api/admin/employees/manage (Required_Role: SystemAdministrator)<br>
+            Policy_Rule: Access to other employees' data and administrative management is strictly forbidden.<br>
+            Action_Taken: Request dropped, security incident recorded.
+          </code>
+        </div>
+
+
+        <div class="error-actions-cluster">
+          <a href="#view-dashboard" class="action-btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            <span>Вернуться в личный кабинет</span>
+          </a>
+          <a href="#view-timecards" class="action-btn btn-outline">К моим табелям</a>
+          <a href="#modal-login" class="action-btn btn-secondary">Войти как Администратор</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <aside id="modal-login" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-login-heading">
+    <div class="modal-card-box">
+      <header class="modal-header-strip">
+        <div class="modal-title-with-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+          <h2 id="modal-login-heading">Авторизация в системе</h2>
+        </div>
+        <a href="#app-root" class="modal-close-cross" aria-label="Закрыть">&times;</a>
+      </header>
+
+      <form class="modal-form-content" action="#view-dashboard" method="post">
+        <div class="form-control-row">
+          <label for="f-login">Логин (Email или табельный номер):</label>
+          <input type="text" id="f-login" name="login" required value="ivan.anoshko@company.com">
+        </div>
+
+        <div class="form-control-row">
+          <label for="f-password">Пароль учетной записи:</label>
+          <input type="password" id="f-password" name="password" required value="••••••••••••">
+        </div>
+
+        <div class="form-control-row role-select-box">
+          <label for="f-role-preset">Быстрая демонстрация ролей:</label>
+          <select id="f-role-preset">
+            <option value="hourly" selected>Служащий-почасовик (Иван Аношко, #101)</option>
+            <option value="salaried">Служащий с окладом (Алена Васильева, #102)</option>
+            <option value="commissioned">Служащий-комиссионер (Дмитрий Ковалев, #103)</option>
+            <option value="admin">Системный администратор (#999)</option>
+          </select>
+          <span class="control-help-text">Выберите роль для переключения контекста доступа.</span>
+        </div>
+
+        <footer class="modal-footer-strip">
+          <a href="#app-root" class="action-btn btn-outline">Отмена</a>
+          <button type="submit" class="action-btn btn-primary">Войти в систему</button>
+        </footer>
+      </form>
+    </div>
+  </aside>
+
+
+  <aside id="modal-timecard-add" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-tc-heading">
+    <div class="modal-card-box">
+      <header class="modal-header-strip">
+        <div class="modal-title-with-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          <h2 id="modal-tc-heading">Внесение карточки рабочего времени</h2>
+        </div>
+        <a href="#app-root" class="modal-close-cross">&times;</a>
+      </header>
+
+      <form class="modal-form-content" action="#view-timecards" method="post">
+        <div class="form-control-row">
+          <label for="tc-add-date">Дата отработанного дня: <span class="required-star">*</span></label>
+          <input type="date" id="tc-add-date" name="work_date" required value="2026-11-18">
+          <span class="control-help-text">Ввод допускается только за текущий открытый расчетный период.</span>
+        </div>
+
+        <div class="form-control-row">
+          <label for="tc-add-hours">Отработано часов: <span class="required-star">*</span></label>
+          <input type="number" id="tc-add-hours" name="hours" required min="0.5" max="24.0" step="0.5" value="8.0">
+          <span class="control-help-text">Часы свыше 8 в день автоматически оплачиваются с коэффициентом 1.5.</span>
+        </div>
+
+        <div class="form-control-row">
+          <label for="tc-add-project">Выполненные задачи / Проект:</label>
+          <input type="text" id="tc-add-project" name="project" placeholder="Например: Разработка модуля начисления зарплаты">
+        </div>
+
+        <footer class="modal-footer-strip">
+          <a href="#app-root" class="action-btn btn-outline">Отмена</a>
+          <button type="submit" class="action-btn btn-primary">Сохранить табель</button>
+        </footer>
+      </form>
+    </div>
+  </aside>
+
+
+  <aside id="modal-timecard-edit" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-edit-tc-heading">
+    <div class="modal-card-box">
+      <header class="modal-header-strip">
+        <h2 id="modal-edit-tc-heading">Редактирование табеля #TC-101-05</h2>
+        <a href="#app-root" class="modal-close-cross">&times;</a>
+      </header>
+
+      <form class="modal-form-content" action="#view-timecards" method="post">
+        <div class="form-control-row">
+          <label for="tc-edit-d">Дата:</label>
+          <input type="date" id="tc-edit-d" value="2026-11-05">
+        </div>
+
+        <div class="form-control-row">
+          <label for="tc-edit-h">Количество часов:</label>
+          <input type="number" id="tc-edit-h" value="10.0" min="0.5" max="24" step="0.5">
+          <span class="status-pill amber inline-pill">2 часа будут рассчитаны со сверхурочным тарифом 1.5</span>
+        </div>
+
+        <footer class="modal-footer-strip split-footer">
+          <a href="#modal-confirm-delete" class="action-btn btn-danger">Удалить запись</a>
+          <div class="footer-btn-group">
+            <a href="#app-root" class="action-btn btn-outline">Отмена</a>
+            <button type="submit" class="action-btn btn-primary">Сохранить изменения</button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </aside>
+
+
+  <aside id="modal-confirm-delete" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-del-heading">
+    <div class="modal-card-box sm-box">
+      <header class="modal-header-strip danger-strip">
+        <h2 id="modal-del-heading">Подтверждение удаления</h2>
+        <a href="#app-root" class="modal-close-cross">&times;</a>
+      </header>
+      <div class="modal-inner-text">
+        <p>Вы действительно уверены, что хотите удалить выбранную запись?</p>
+        <p class="danger-warn-note">Данное действие необратимо и будет зафиксировано в журнале аудита безопасности.</p>
+      </div>
+      <footer class="modal-footer-strip">
+        <a href="#view-timecards" class="action-btn btn-outline">Отмена</a>
+        <a href="#view-timecards" class="action-btn btn-danger">Удалить безвозвратно</a>
+      </footer>
+    </div>
+  </aside>
+
+
+  <aside id="modal-employee-add" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-emp-heading">
+    <div class="modal-card-box lg-box">
+      <header class="modal-header-strip">
+        <div class="modal-title-with-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+          <h2 id="modal-emp-heading">Добавление нового служащего компании</h2>
+        </div>
+        <a href="#app-root" class="modal-close-cross">&times;</a>
+      </header>
+
+      <form class="modal-form-content" action="#view-admin" method="post">
+        <fieldset class="form-section-fieldset">
+          <legend class="fieldset-title">Личные и контактные данные</legend>
+          <div class="form-two-col">
+            <div class="form-control-row">
+              <label for="emp-fio">ФИО сотрудника: <span class="required-star">*</span></label>
+              <input type="text" id="emp-fio" name="fio" required placeholder="Иванов Петр Сергеевич">
+            </div>
+            <div class="form-control-row">
+              <label for="emp-num">Табельный номер (ID): <span class="required-star">*</span></label>
+              <input type="number" id="emp-num" name="emp_id" required placeholder="например, 105">
+            </div>
+          </div>
+          <div class="form-two-col">
+            <div class="form-control-row">
+              <label for="emp-addr">Домашний адрес: <span class="required-star">*</span></label>
+              <input type="text" id="emp-addr" name="address" required placeholder="г. Минск, пр. Независимости 4">
+            </div>
+            <div class="form-control-row">
+              <label for="emp-country-sel">Страна филиала: <span class="required-star">*</span></label>
+              <select id="emp-country-sel" name="country">
+                <option value="BY" selected>Беларусь</option>
+                <option value="PL">Польша</option>
+                <option value="LT">Литва</option>
+                <option value="KZ">Казахстан</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section-fieldset">
+          <legend class="fieldset-title">Условия оплаты труда (Бизнес-правила АИС)</legend>
+          <div class="form-two-col">
+            <div class="form-control-row">
+              <label for="emp-category-sel">Категория оплаты: <span class="required-star">*</span></label>
+              <select id="emp-category-sel" name="category">
+                <option value="hourly">1. Почасовик (выплата каждую пятницу)</option>
+                <option value="salaried">2. Фиксированный оклад (выплата в конце месяца)</option>
+                <option value="commissioned">3. Оклад + комиссионные с продаж</option>
+              </select>
+            </div>
+            <div class="form-control-row">
+              <label for="emp-rate-in">Тарифная ставка / Оклад (BYN): <span class="required-star">*</span></label>
+              <input type="number" id="emp-rate-in" name="rate" required step="0.01" placeholder="25.50 или 2800.00">
+            </div>
+          </div>
+
+          <div class="form-two-col">
+            <div class="form-control-row">
+              <label for="emp-comm-sel">Индивидуальный процент комиссии:</label>
+              <select id="emp-comm-sel" name="commission_rate">
+                <option value="0">Не применимо (0%)</option>
+                <option value="10">10% от объема продаж</option>
+                <option value="15">15% от объема продаж</option>
+                <option value="25">25% от объема продаж</option>
+                <option value="35">35% от объема продаж</option>
+              </select>
+            </div>
+            <div class="form-control-row">
+              <label for="emp-pay-sel">Способ выплаты зарплаты: <span class="required-star">*</span></label>
+              <select id="emp-pay-sel" name="payment_method">
+                <option value="bank" selected>Банковский счет (Bank Transfer)</option>
+                <option value="mail">Почтовый чек (Mail Delivery)</option>
+                <option value="office">Наличные в офисе компании (Office)</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <footer class="modal-footer-strip">
+          <a href="#app-root" class="action-btn btn-outline">Отмена</a>
+          <button type="submit" class="action-btn btn-primary">Создать учетную запись</button>
+        </footer>
+      </form>
+    </div>
+  </aside>
+
+
+  <aside id="modal-vacation-add" class="modal-dialog-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-vac-heading">
+    <div class="modal-card-box">
+      <header class="modal-header-strip">
+        <h2 id="modal-vac-heading">Заявление на ежегодный отпуск</h2>
+        <a href="#app-root" class="modal-close-cross">&times;</a>
+      </header>
+
+      <form class="modal-form-content" action="#view-vacations" method="post">
+        <div class="form-control-row">
+          <label for="vac-d-start">Дата начала отпуска (не менее чем через 60 дней): <span class="required-star">*</span></label>
+          <input type="date" id="vac-d-start" name="start_date" required value="2027-02-01">
+          <span class="control-help-text green-help">Срок до начала: 74 дня (требование регламента ≥ 60 дней соблюдено).</span>
+        </div>
+
+        <div class="form-control-row">
+          <label for="vac-len">Продолжительность отпуска:</label>
+          <input type="text" id="vac-len" readonly value="28 рабочих дней">
+        </div>
+
+        <div class="form-control-row">
+          <label for="vac-calc">Ориентировочная сумма аванса отпускных:</label>
+          <input type="text" id="vac-calc" readonly value="~ 3 620.00 BYN (Среднее за 3 предшествующих месяца)">
+        </div>
+
+        <footer class="modal-footer-strip">
+          <a href="#app-root" class="action-btn btn-outline">Отмена</a>
+          <button type="submit" class="action-btn btn-primary">Подать заявление</button>
+        </footer>
+      </form>
+    </div>
+  </aside>
+
+
+  <footer class="app-footer">
+    <div class="footer-inner-grid">
+      <div class="footer-brand-box">
+        <div class="footer-logo">
+          <strong>PayrollHub</strong> • Корпоративный портал выплат
+        </div>
+        <p class="footer-tagline">
+          Автоматизированная система начисления зарплаты, учета отработанного времени
+          и кадрового администрирования.
+        </p>
+        <span class="footer-copyright">© 2026 БГУ ФПМИ • Кафедра технологий программирования</span>
+      </div>
+
+      <div class="footer-links-box">
+        <span class="footer-column-heading">Быстрый переход</span>
+        <ul class="footer-links-list">
+          <li><a href="#view-dashboard">Обзор (Dashboard)</a></li>
+          <li><a href="#view-timecards">Табели времени</a></li>
+          <li><a href="#view-paychecks">Расчетные чеки</a></li>
+          <li><a href="#view-admin">Панель администратора</a></li>
+          <li><a href="#view-error">Экран ошибки (403 Forbidden)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-box">
+        <span class="footer-column-heading">Архитектура & Стандарты</span>
+        <ul class="footer-links-list">
+          <li>Архитектура: <strong>Single Page Application (SPA)</strong></li>
+          <li>Технологии: <strong>HTML5 + CSS3 (Grid / Flexbox)</strong></li>
+          <li>Ограничение: <strong>Верстка строго без тега &lt;table&gt;</strong></li>
+          <li>Интеграция: <strong>Legacy DB (Read-Only)</strong></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-box">
+        <span class="footer-column-heading">Исполнитель</span>
+        <p class="footer-student-meta">
+          <strong>Степаненко Максим Юрьевич</strong><br>
+          Студент 3 курса, 6 группы ФПМИ<br>
+          Преподаватель: Зенько Т. А.
+        </p>
+        <a href="#modal-login" class="action-btn btn-sm btn-outline">Сменить пользователя</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
